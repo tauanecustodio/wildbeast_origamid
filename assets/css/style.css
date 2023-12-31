@@ -61,14 +61,14 @@ header {
 .nav-bar ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 2em;
+    gap: 1.7em;
 }
 
 .nav-bar ul li a {
     color: var(--color-text-3);
     font: var(--font-link);
     background: var(--color-link-bg);
-    padding: 0.75em;
+    padding: 0.5em;
     border-radius: 5px;
     transition: 0.5s;
 }
@@ -85,11 +85,16 @@ header {
     grid-area: sidenav;
 }
 
-.sidenav li a {
-    display: block;
-    min-width: 60px;
-    max-width: 145px;
-    margin: 0 auto 30px auto;
+.sidenav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+}
+
+.sidenav li {
+    min-width: 100px;
+    max-width: 140px;
     background-color: var(--color-bg2);
     padding: 1.3em;
     border-radius: 5px;
@@ -97,7 +102,7 @@ header {
     transition: 0.5s;
 }
 
-.sidenav li a:hover {
+.sidenav li:hover {
     background-color: var(--color-text-2);
 }
 
@@ -198,7 +203,6 @@ header {
     padding: 1.5em 2em;
     font: var(--font-blockquote);
     text-align: center;
-    letter-spacing: -1px;
 }
 
 .blockquote p {
@@ -222,6 +226,7 @@ header {
     padding: 2em;
     grid-area: anuncios;
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     align-content: start;
     grid-gap: 2em;
 }
@@ -237,5 +242,70 @@ footer {
     grid-area: footer;
 }
 
-
 /* MEDIA QUERIES */
+
+@media (max-width: 1200px) {
+    body {
+        grid-template-areas: "header header header"
+        "sidenav content content"
+        "sidenav anuncios anuncios"
+        "footer footer footer";
+    }
+}
+
+@media (max-width: 760px) {
+    :root {
+    --font-link: 400 1em 'Vollkorn', Georgia, serif; 
+    }
+    body {
+    grid-template-columns: 100%;
+    grid-template-areas: "header"
+    "sidenav" 
+    "content"
+    "anuncios"
+    "footer";
+    }
+    .sidenav {
+        padding: 30px;
+        overflow-x: auto;
+        --webkit-overflow-scrolling: touch;
+        --ms-overflow-style: -ms-autohiding-scrollbar;
+        position: relative;
+    }
+    @keyframes seta {
+        from {
+            right: 30px;
+        }
+        to {
+            right: 20px;
+        }
+    }
+    .sidenav::after {
+        content: "→";
+        position: absolute;
+        top: 5px;
+        right: 20px;
+        color: rgba(0, 0, 0, .4);
+        animation: seta 0.5s ease-in 0s infinite alternate;
+    }
+    .sidenav ul {
+        flex-direction: row;
+    }
+    .sidenav ul::after {
+        content: ".";
+        color: var(--color-bg1);
+        position: relative;
+    }
+    header {
+        grid-template-columns: auto;
+        gap: 2em;
+    }
+    .nav-bar ul {
+        gap: 0.8em;
+    }
+}
+@media (max-width: 600px) {
+    .section-about {
+        grid-template-columns: 1fr;
+    }
+}
